@@ -1,49 +1,81 @@
 package com.example.TurismoApi.Services;
 
+import com.example.TurismoApi.Models.Company;
 import com.example.TurismoApi.Models.Offer;
 import com.example.TurismoApi.Repositories.IOfferRepository;
-import com.example.TurismoApi.Validators.NumRangeValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.example.TurismoApi.Validators.IValidable;
-import com.example.TurismoApi.Validators.StringRangeValidator;
-import com.example.TurismoApi.Validators.DateValidator;
-
-
 import java.util.List;
+import java.util.Optional;
 
 public class OfferService {
 
     @Autowired
     IOfferRepository offerRepository;
 
-    private final IValidable<String> lengthBetween0And20Validator;
-    private final IValidable<String> formatDateValidator;
-    private final IValidable<Double> positiveNumberValidator;
-
-
-    public OfferService() {
-        lengthBetween0And20Validator = new StringRangeValidator(0,20);
-        formatDateValidator = new DateValidator();
-        positiveNumberValidator = new NumRangeValidator(0.0, Double.MAX_VALUE);
-    }
 
     public Offer postOffer(Offer offer) throws Exception {
-        return offerRepository.save(offer);
+        try{
+            return offerRepository.save(offer);
+        } catch (Exception exception){
+            throw new Exception(exception.getMessage());
+        }
     }
 
     public Offer putOffer(Integer id, Offer offer) throws Exception {
-        return null;
+        try{
+            Optional<Offer> optionalOffer = offerRepository.findById(id);
+
+            if (optionalOffer.isEmpty()){
+                throw new Exception("Offer not found");
+            }
+
+            Offer _offer = optionalOffer.get();
+            _offer.setDescription(offer.getDescription());
+            _offer.setTittle(offer.getTittle());
+
+            return offerRepository.save(_offer);
+
+        } catch (Exception exception){
+            throw new Exception(exception.getMessage());
+        }
     }
 
     public Offer getOfferById(Integer id) throws Exception{
-        return null;
+        try{
+            Optional<Offer> optionalOffer = offerRepository.findById(id);
+
+            if (optionalOffer.isEmpty()){
+                throw new Exception("Offer not found");
+            }
+
+            return optionalOffer.get();
+        } catch (Exception exception){
+            throw new Exception(exception.getMessage());
+        }
     }
 
     public List<Offer> getOffers() throws Exception{
-        return null;
+        try{
+            return offerRepository.findAll();
+
+        } catch (Exception exception){
+            throw new Exception(exception.getMessage());
+        }
     }
 
     public boolean deleteOffer(Integer id) throws Exception{
-        return true;
+        try{
+            Optional<Offer> optionalOffer = offerRepository.findById(id);
+
+            if (optionalOffer.isEmpty()){
+                throw new Exception("Offer not found");
+            }
+
+            offerRepository.deleteById(id);
+            return true;
+
+        } catch (Exception exception){
+            throw new Exception(exception.getMessage());
+        }
     }
 }

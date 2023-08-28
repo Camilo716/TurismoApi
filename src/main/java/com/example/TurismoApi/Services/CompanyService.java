@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.lang.reflect.Array;
 import java.util.List;
+import java.util.Optional;
 
 public class CompanyService {
 
@@ -36,18 +37,61 @@ public class CompanyService {
     }
 
     public Company putCompany(Integer id, Company company) throws Exception {
-        return null;
+        try{
+            lengthBetween0And30Validator.validate(company.getName());
+
+            Optional<Company> foundCompany = companyRepository.findById(id);
+            if (foundCompany.isEmpty()){
+                throw new Exception("Company not found");
+            }
+
+            Company _company = foundCompany.get();
+            _company.setName(company.getName());
+            _company.setLocation(company.getLocation());
+
+            return companyRepository.save(_company);
+
+        } catch (Exception exception){
+            throw new Exception(exception.getMessage());
+        }
     }
 
     public Company getCompanyById(Integer id) throws Exception{
-        return null;
+        try{
+            Optional<Company> optionalCompany = companyRepository.findById(id);
+
+            if (optionalCompany.isEmpty()){
+                throw new Exception("Company not found");
+            }
+
+            return optionalCompany.get();
+        } catch (Exception exception){
+            throw new Exception(exception.getMessage());
+        }
     }
 
     public List<Company> getCompanies() throws Exception{
-        return null;
+        try{
+            return companyRepository.findAll();
+
+        } catch (Exception exception){
+            throw new Exception(exception.getMessage());
+        }
     }
 
     public boolean deleteCompany(Integer id) throws Exception{
-        return true;
+        try{
+            Optional<Company> optionalCompany = companyRepository.findById(id);
+
+            if (optionalCompany.isEmpty()){
+                throw new Exception("Company not found");
+            }
+
+            companyRepository.deleteById(id);
+            return true;
+
+        } catch (Exception exception){
+            throw new Exception(exception.getMessage());
+        }
     }
 }
