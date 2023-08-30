@@ -6,11 +6,14 @@ import com.example.TurismoApi.Validators.IValidable;
 import com.example.TurismoApi.Validators.StringRangeValidator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Optional;
 
+
+@Service
 public class CompanyService {
 
     @Autowired

@@ -4,9 +4,12 @@ import com.example.TurismoApi.Models.Company;
 import com.example.TurismoApi.Models.Offer;
 import com.example.TurismoApi.Repositories.IOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class OfferService {
 
     @Autowired
