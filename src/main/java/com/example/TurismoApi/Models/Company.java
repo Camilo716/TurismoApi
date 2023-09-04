@@ -13,6 +13,8 @@ public class Company {
     protected final Double anualCost = 120000d;
     protected final Double monthlyCost = 70000d;
 
+    public Company() {
+    }
 
     public Company(Integer id, String nit, String name, String location) {
         this.id = id;

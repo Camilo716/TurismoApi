@@ -18,7 +18,6 @@ public class CompanyService {
 
     @Autowired
     ICompanyRepository companyRepository;
-    @Autowired
     IValidable<String> stringLenghtValidator;
 
     private final IValidable<String> lengthBetween0And10Validator;

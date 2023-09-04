@@ -4,7 +4,7 @@ package com.example.TurismoApi.Validators;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
-@Component
+
 public class StringRangeValidator implements  IValidable<String> {
 
     Integer minLength;

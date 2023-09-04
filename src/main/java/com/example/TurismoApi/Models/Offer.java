@@ -16,6 +16,10 @@ public class Offer {
     private LocalDate endDay;
     private Double costPerPerson;
 
+    public Offer(){
+
+    }
+
     public Offer(Integer id, String tittle, String description, LocalDate startDay, LocalDate endDay, Double costPerPerson) {
         this.id = id;
         this.tittle = tittle;
@@ -24,6 +28,7 @@ public class Offer {
         this.endDay = endDay;
         this.costPerPerson = costPerPerson;
     }
+
 
     public Integer getId() {
         return id;
